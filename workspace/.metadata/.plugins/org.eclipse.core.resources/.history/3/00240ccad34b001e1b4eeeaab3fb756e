@@ -1,0 +1,26 @@
+package com.jin.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.jin.mapper.MemberMapper;
+import com.jin.model.MemberVO;
+
+@Service
+public class MemberServiceImpl implements MemberService {
+
+	@Override
+	public void memberJoin(MemberVO member) throws Exception {
+		
+		@Autowired
+		MemberMapper membermapper;
+		
+		@Override
+		public void memberJoin(MemberVO member) throws Exception{
+			
+			membermapper.memberJoin(member);
+		}
+		
+	}
+
+}

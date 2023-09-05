@@ -1,0 +1,5 @@
+package com.jin.persistence;
+
+public class JDBCTest {
+
+}
