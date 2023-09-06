@@ -1,0 +1,4 @@
+
+9월 06, 2023 18:45:43.386 NEW SESSION
+9월 06, 2023 18:45:43.386 [18628:17792:0906/184543.383:ERROR:persistent_memory_allocator.cc(847)] Corruption detected in shared-memory segment.
+9월 06, 2023 18:45:43.786 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.

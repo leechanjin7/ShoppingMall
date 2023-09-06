@@ -1,0 +1,147 @@
+package com.jin.controller;
+
+import javax.mail.internet.MimeMessage;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.jin.model.MemberVO;
+import com.jin.service.MemberService;
+
+import lombok.extern.log4j.Log4j;
+
+@Controller
+@RequestMapping(value="/member")
+@Log4j
+public class MemberController {
+	
+	@Autowired
+	private MemberService memberservice;
+	
+	@Autowired
+	private JavaMailSender mailSender;
+	
+	//회원가입 페이지 이동
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public void loginGET() {
+		
+		log.info("회원가입 페이지 진입");
+		
+	}
+	//회원가입
+	@RequestMapping(value="/join", method = RequestMethod.POST)
+	public String joinPOST(MemberVO member) throws Exception{
+		log.info("join 진입");
+		
+		//회원가입 서비스 실행
+		memberservice.memberJoin(member);
+		log.info("join Service 성공");
+		
+		return "redirect:/main";
+	}
+	
+	//로그인 페이지 이동
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public void joinGET() {
+		
+		log.info("로그인 페이지 진입");
+		
+	}
+	
+	//아이디 중복검사
+	@RequestMapping(value = "/memberIdChk", method = RequestMethod.POST)
+	@ResponseBody
+	public String memberIdChkPOST(String memberId) throws Exception{
+		
+		//log.info("memberIdChk() 진입");
+		
+		int result = memberservice.idCheck(memberId);
+		
+		//log.info("결과값 = " + result);
+		
+		if(result != 0) {
+			return "fail";	// 중복아이디가 존재
+		}else {
+			return "success";	//중복 아이디 x
+		}
+	}
+	
+	//메일 보내기 확인
+	@RequestMapping(value="/sendMail", method=RequestMethod.GET)
+	public void sendMailTest() throws Exception{
+		
+		String subject = "test 메일";
+		String content = "메일 테스트 내용";
+		String from = "보내는이 아이디@도메인주소";
+		String to = "받는이 아이디@도메인주소";
+		
+		try {
+			MimeMessage mail = mailSender.createMimeMessage();
+			MimeMessageHelper mailHelper = new MimeMessageHelper(mail,true,"UTF-8");
+			//true는 멀티파트 메세지를 사용하겠다는 의미
+			
+			//단순한 텍스트 메세지만 사용시엔 아래도 가능
+			//MimeMessageHelper mailHelper = new MimeMessageHelper(mail,"UTF-8");
+			
+			mailHelper.setFrom(from);
+			//빈에 아이디 설정한 것은 단순히 smtp인증을 받기 위해 사용. 따라서 보내는이(setFrom())이 반드시 필요하다
+			//보내는이와 메일주소를 수신하는이가 볼때 모두 표기 되게 원한다면 아래코드
+			//mailHelper.setFrom("보내는이 이름 <보내는이 아이디@도메인주소>");
+			mailHelper.setTo(to);
+			mailHelper.setSubject(subject);
+			mailHelper.setText(content, true);
+			//true는 html을 사용하겠다는 의미
+			
+			//단순한 텍스트사용만 원한다면
+			//mailHelper.setText(content);
+			
+			mailSender.send(mail);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	
+	//MimeMessagePreparator 방법
+//    @RequestMapping(value = "/sendMail", method = RequestMethod.GET)
+//    public void sendMailTest2() throws Exception{
+// 
+//        String subject = "test 메일";
+//        String content = "메일 테스트 내용.";
+//        String from = "보내는이 아이디@도메인주소";
+//        String to = "받는이 아이디@도메인주소";
+//        
+//        
+//        final MimeMessagePreparator preparator = new MimeMessagePreparator() {
+//            
+//            public void prepare(MimeMessage mimeMessage) throws Exception{
+//                final MimeMessageHelper mailHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+//                
+//                mailHelper.setFrom(from);
+//                mailHelper.setTo(to);
+//                mailHelper.setSubject(subject);
+//                mailHelper.setText(content, true);
+// 
+//            }
+//            
+//        };
+//        
+//        try {    
+//            mailSender.send(preparator);
+//            
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//        }        
+//        
+//    }
+
+	
+	
+
+}
