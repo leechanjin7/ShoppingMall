@@ -1,1 +1,7 @@
+com\jin\mapper\MemberMapper.class
+com\jin\model\MemberVO.class
+com\jin\controller\MemberController.class
+com\jin\service\MemberService.class
+com\jin\service\MemberServiceImpl.class
 com\jin\controller\HomeController.class
+com\jin\controller\BookController.class

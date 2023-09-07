@@ -1,2 +1,4 @@
-com\jin\persistence\DataSourceTest.class
 com\jin\persistence\JDBCTest.class
+com\jin\persistence\MailTestController.class
+com\jin\mapper\MemberMapperTests.class
+com\jin\persistence\DataSourceTest.class

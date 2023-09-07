@@ -1,0 +1,42 @@
+package com.jin.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		// 다음은 예시로 모든 사용자가 "/main"에 접근 가능하도록 설정한 것입니다.
+		http.authorizeRequests().antMatchers("/main").permitAll().anyRequest().authenticated().and().formLogin()
+				.loginPage("/login") // 로그인 페이지 설정
+				.permitAll().and().logout().permitAll();
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+
+		// BCryptPasswordEncoder를 사용하여 비밀번호를 해시화합니다.
+		return new BCryptPasswordEncoder();
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		// 사용자 인증을 위해 UserDetailsService를 설정하고 비밀번호 인코더를 사용합니다.
+		auth.userDetailsService(yourUserDetailsService).passwordEncoder(passwordEncoder());
+	}
+
+}
