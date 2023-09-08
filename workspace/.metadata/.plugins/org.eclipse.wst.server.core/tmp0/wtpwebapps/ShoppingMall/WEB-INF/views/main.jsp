@@ -106,7 +106,7 @@
                     <img src="resources/img/Logo.png">
                 </div>
                 <div class="footer_right">
-                    (주) JINBook    대표이사 : OOO
+                    (주) JINI Books    대표이사 : OOO
                     <br>
                     사업자등록번호 : ooo-oo-ooooo
                     <br>

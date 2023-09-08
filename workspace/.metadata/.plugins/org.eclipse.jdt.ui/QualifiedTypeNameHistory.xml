@@ -3,4 +3,6 @@
     <fullyQualifiedTypeName name="com.jin.service.MemberService"/>
     <fullyQualifiedTypeName name="java.io.File"/>
     <fullyQualifiedTypeName name="org.junit.Test"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="org.springframework.test.context.junit4.SpringJUnit4ClassRunner"/>
 </qualifiedTypeNameHistroy>

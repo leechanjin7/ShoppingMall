@@ -1,0 +1,12 @@
+package com.jin.mapper;
+
+import com.jin.model.AuthorVO;
+
+//mapper 패키지는 쿼리를 실해앟는 메서드 작성
+
+public interface AuthorMapper {
+	
+	//작가등록
+	public void authorEnroll(AuthorVO author);
+
+}
