@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.jin.mapper.AdminMapper">
+  
+    <!-- 작가 등록 -->
+  	<insert id="bookEnroll">
+  	
+  		insert into jin_book(bookName, authorId, publeYear, publisher, cateCode, bookPrice, bookStock, bookDiscount, bookIntro, bookContents)
+		values(#{bookName},#{authorId}, #{publeYear},#{publisher},#{cateCode},#{bookPrice},#{bookStock},#{bookDiscount},#{bookIntro},#{bookContents})
+
+  	</insert>
+  	
+  	<!-- 카테고리 리스트 -->
+  	<select id="cateList" resultType="com.jin.model.CateVO">
+  	
+  		select * from jin_bcate order by catecode
+  	
+  	</select>
+  	
+  	<!-- 상품 리스트 -->
+	<select id="goodsGetList" resultType="com.jin.model.BookVO">
+	
+		select  bookId, bookName,  b.authorName, c.cateName, bookStock, a.regDate
+		from jin_book a 
+		left outer join jin_author b on a.authorId = b.authorId
+		left outer join jin_bcate c on a.cateCode = c.cateCode
+		<if test="keyword != null">
+			where (bookName like concat ('%', #{keyword}, '%'))
+		</if>
+		order by bookId desc 
+		limit #{skip}, #{amount}		
+	
+	</select>
+  	
+  	<!-- 상품 총 갯수 -->
+  	<select id="goodsGetTotal" resultType="int">
+  	
+  		select count(*) from jin_book
+  		
+  		<if test="keyword != null">
+  		
+  			where bookName like concat('%' , #{keyword}, '%')
+  		
+  		</if>
+  	
+  	</select>
+  	
+  	<!-- 상품 조회 페이지 -->
+	<select id="goodsGetDetail" resultType="com.jin.model.BookVO">
+	
+		select bookId, bookName, (select authorName from jin_author where authorId = jin_book.authorId) authorName, 
+			authorId, publeYear, publisher, cateCode, bookPrice, bookStock, bookDiscount, bookIntro, bookContents, regDate, updateDate 
+		from jin_book where bookId = #{bookId}
+	
+	</select>
+	
+	<!-- 상품 정보 수정 -->
+	<update id="goodsModify">
+		
+		update jin_book set bookName = #{bookName}, authorId = #{authorId}, publeYear = #{publeYear}, publisher = #{publisher}, cateCode = ${cateCode}, 
+		bookPrice = #{bookPrice}, bookStock = #{bookStock}, bookDiscount = #{bookDiscount}, bookIntro = #{bookIntro}, bookContents = #{bookContents}, updateDate = now()
+		where bookId = ${bookId}
+		
+	</update>
+  
+
+  </mapper>
