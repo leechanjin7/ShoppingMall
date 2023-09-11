@@ -4,8 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.jin.mapper.AdminMapper">
   
-    <!-- 작가 등록 -->
+    <!-- 상품 등록 -->
   	<insert id="bookEnroll">
+  	
+  		<selectKey resultType="int" keyProperty="bookId" order="AFTER">
+  		
+  			SELECT last_insert_id();
+  		
+  		</selectKey>
   	
   		insert into jin_book(bookName, authorId, publeYear, publisher, cateCode, bookPrice, bookStock, bookDiscount, bookIntro, bookContents)
 		values(#{bookName},#{authorId}, #{publeYear},#{publisher},#{cateCode},#{bookPrice},#{bookStock},#{bookDiscount},#{bookIntro},#{bookContents})
@@ -71,6 +77,34 @@
 		delete from jin_book where bookId = #{bookId}
 	
 	</delete>
+	
+	<!-- 이미지 등록 -->
+	<insert id="imageEnroll">
+	
+		insert into jin_image(bookId, fileName, uploadPath, uuid) values (#{bookId}, #{fileName}, #{uploadPath}, #{uuid})
+	
+	</insert>
+	
+	<!-- 지정 상품 이미지 전체 삭제 --> 
+	<delete id="deleteImageAll">
+	
+		delete FROM jin_image where bookId = #{bookId}
+	
+	</delete>
+	
+	<!-- 어제자 날자 이미지 리스트 -->
+	<select id="checkFileList" resultType="com.jin.model.AttachImageVO">
+	
+		select * from jin_image where uploadpath = DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 DAY), '%Y\%m\%d')	
+	
+	</select>
+	
+	<!-- 지정 상품 이미지 정보 얻기 -->
+	<select id="getAttachInfo" resultType="com.jin.model.AttachImageVO">
+	
+		select * from jin_image where bookId = #{bookId}
+	
+	</select>
   
 
   </mapper>

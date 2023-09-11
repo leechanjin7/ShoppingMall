@@ -11,7 +11,18 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 	crossorigin="anonymous"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
+<script
+	src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
+<style type="text/css">
+	#result_card img{
+		max-width: 100%;
+	    height: auto;
+	    display: block;
+	    padding: 5px;
+	    margin-top: 10px;
+	    margin: auto;	
+	}
+</style>
 </head>
 <body>
 
@@ -144,6 +155,17 @@
 					<textarea name="bookContents" id="bookContents_textarea" disabled>${goodsInfo.bookContents}</textarea>
 				</div>
 			</div>
+			
+			<div class="form_section">
+				<div class="form_section_title">
+					<label>상품 이미지</label>
+				</div>
+				<div class="form_section_content">
+
+					<div id="uploadReslut"></div>
+				</div>
+			</div>
+
 
 			<div class="btn_section">
 				<button id="cancelBtn" class="btn">상품 목록</button>
@@ -153,16 +175,16 @@
 
 
 		<form id="moveForm" action="/admin/goodsManage" method="get">
-			<input type="hidden" name="pageNum" value="${cri.pageNum}">
-			<input type="hidden" name="amount" value="${cri.amount}">
-			<input type="hidden" name="keyword" value="${cri.keyword}">
+			<input type="hidden" name="pageNum" value="${cri.pageNum}"> <input
+				type="hidden" name="amount" value="${cri.amount}"> <input
+				type="hidden" name="keyword" value="${cri.keyword}">
 		</form>
 
 	</div>
 	<%@include file="../includes/admin/footer.jsp"%>
-	
-	
-<script>
+
+
+	<script>
 	
 	$(document).ready(function(){
 		
@@ -276,6 +298,39 @@
 			}
 		});	
 		
+		/* 이미지 정보 호출 */
+		let bookId = '<c:out value="${goodsInfo.bookId}"/>';
+		let uploadReslut = $("#uploadReslut");
+		
+		$.getJSON("/getAttachList", {bookId : bookId}, function(arr){
+			
+			if(arr.length === 0){	
+				
+				let str = "";
+				str += "<div id='result_card'>";
+				str += "<img src='/resources/img/goodsNoImage.png'>";
+				str += "</div>";
+				
+				uploadReslut.html(str);	
+				
+				return;
+			}
+			
+			let str = "";
+			let obj = arr[0];
+			
+			let fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+			str += "<div id='result_card'";
+			str += "data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "'";
+			str += ">";
+			str += "<img src='/display?fileName=" + fileCallPath +"'>";
+			str += "</div>";
+			
+			uploadReslut.html(str);
+			
+		});
+		
+		
 	});
 	
 	/* 목록 이동 버튼 */
@@ -295,8 +350,8 @@
 	
 
 
-</script>	
-	
+</script>
+
 
 
 </body>

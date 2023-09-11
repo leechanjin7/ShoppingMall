@@ -1,8 +1,11 @@
 package com.jin.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class BookVO {
+	
+	private AttachImageVO imageVO;
 	
 	/* 상품 id */
 	private int bookId;
@@ -48,6 +51,9 @@ public class BookVO {
 	
 	/* 수정 날짜 */
 	private Date updateDate;
+	
+	//이미지 정보
+	private List<AttachImageVO> imageList;
 
 	public int getBookId() {
 		return bookId;
@@ -169,14 +175,27 @@ public class BookVO {
 		this.updateDate = updateDate;
 	}
 
+
+	public List<AttachImageVO> getImageList() {
+		return imageList;
+	}
+
+	public void setImageList(List<AttachImageVO> imageList) {
+		this.imageList = imageList;
+	}
+
 	@Override
 	public String toString() {
-		return "BookVO [bookId=" + bookId + ", bookName=" + bookName + ", authorId=" + authorId + ", authorName="
-				+ authorName + ", publeYear=" + publeYear + ", publisher=" + publisher + ", cateCode=" + cateCode
-				+ ", cateName=" + cateName + ", bookPrice=" + bookPrice + ", bookStock=" + bookStock + ", bookDiscount="
-				+ bookDiscount + ", bookIntro=" + bookIntro + ", bookContents=" + bookContents + ", regDate=" + regDate
-				+ ", updateDate=" + updateDate + "]";
+		return "BookVO [imageVO=" + imageVO + ", bookId=" + bookId + ", bookName=" + bookName + ", authorId=" + authorId
+				+ ", authorName=" + authorName + ", publeYear=" + publeYear + ", publisher=" + publisher + ", cateCode="
+				+ cateCode + ", cateName=" + cateName + ", bookPrice=" + bookPrice + ", bookStock=" + bookStock
+				+ ", bookDiscount=" + bookDiscount + ", bookIntro=" + bookIntro + ", bookContents=" + bookContents
+				+ ", regDate=" + regDate + ", updateDate=" + updateDate + ", imageList=" + imageList + "]";
 	}
+	
+	
+	
+	
 	
 	
 	

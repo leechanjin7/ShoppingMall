@@ -1,0 +1,32 @@
+package com.jin.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.jin.mapper.BookMapper;
+import com.jin.model.BookVO;
+import com.jin.model.Criteria;
+
+@Service
+public class BookServiceImpl implements BookService {
+	
+	@Autowired
+	private BookMapper bookMapper;
+
+	//상품 검색
+	@Override
+	public List<BookVO> getGoodsList(Criteria cri) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	//상품 총 갯수
+	@Override
+	public int goodsGetTotal(Criteria cri) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

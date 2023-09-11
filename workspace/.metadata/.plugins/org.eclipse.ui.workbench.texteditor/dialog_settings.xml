@@ -6,8 +6,10 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="select"/>
+		<item key="selection" value="검색"/>
 		<list key="findhistory">
+			<item value="검색"/>
+			<item value="할인율"/>
 			<item value="select"/>
 			<item value="authorId_input"/>
 			<item value=""/>
