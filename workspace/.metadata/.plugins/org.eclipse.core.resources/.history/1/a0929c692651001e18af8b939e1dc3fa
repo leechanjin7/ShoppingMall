@@ -1,0 +1,17 @@
+package com.jin.service;
+
+import org.springframework.stereotype.Service;
+
+import com.jin.model.CartDTO;
+
+@Service
+public class CartServiceImpl implements CartService{
+
+	//장바구니 추가
+	@Override
+	public int addCart(CartDTO cart) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

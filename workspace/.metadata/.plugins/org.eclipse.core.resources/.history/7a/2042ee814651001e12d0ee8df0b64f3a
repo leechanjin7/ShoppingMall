@@ -1,0 +1,11 @@
+package com.jin.model;
+
+import java.util.List;
+
+public class OrderPageDTO {
+	
+	private List<OrderPageItemDTO> getOrders(){
+		return orders;
+	}
+
+}

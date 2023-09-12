@@ -1,0 +1,10 @@
+package com.jin.service;
+
+import com.jin.model.CartDTO;
+
+public interface CartService {
+	
+	//장바구니 추가
+	public int addCart(CartDTO cart);
+
+}

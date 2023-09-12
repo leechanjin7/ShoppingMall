@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -39,10 +40,14 @@ public class BookController {
 	
 	//메인 페이지 이동
 	@RequestMapping(value="/main", method = RequestMethod.GET)
-	public void mainPageGET() {
+	public void mainPageGET(Model model) {
 		log.info("메인 페이지 진입");
+		
+		model.addAttribute("cate1", bookService.getCateCode1());
+		model.addAttribute("cate2", bookService.getCateCode2());
 	}
 	
+	//이미지 출력
 	@GetMapping("/display")
 	public ResponseEntity<byte[]> getImage(String fileName){
 		
@@ -76,7 +81,7 @@ public class BookController {
 	}
 	
 	/* 상품 검색 */
-	@GetMapping("search")
+	@GetMapping("/search")
 	public String searchGoodsGET(Criteria cri, Model model) {
 		
 		log.info("cri : " + cri);
@@ -94,9 +99,28 @@ public class BookController {
 		
 		model.addAttribute("pageMaker", new PageDTO(cri, bookService.goodsGetTotal(cri)));
 		
+		String[] typeArr = cri.getType().split("");
+		
+		for(String s : typeArr) {
+			if(s.equals("T") || s.equals("A")) {
+				model.addAttribute("filter_info", bookService.getCateInfoList(cri));		
+			}
+		}
+		
 		
 		return "search";
 		
+	}
+	
+	//상품상세
+	@GetMapping("/goodsDetail/{bookId}")
+	public String goodsDetailGET(@PathVariable("bookId")int bookId, Model model) {
+		
+		log.info("goodsDetailGET()......");
+		
+		model.addAttribute("goodsInfo", bookService.getGoodsInfo(bookId));
+		
+		return "/goodsDetail";
 	}
 	
 

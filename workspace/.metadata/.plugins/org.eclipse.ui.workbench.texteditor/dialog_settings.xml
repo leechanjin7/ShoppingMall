@@ -6,8 +6,12 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="검색"/>
+		<item key="selection" value="jin"/>
 		<list key="findhistory">
+			<item value="vam"/>
+			<item value="title"/>
+			<item value=".footer"/>
+			<item value=".search"/>
 			<item value="검색"/>
 			<item value="할인율"/>
 			<item value="select"/>
@@ -19,15 +23,13 @@
 			<item value="hidden"/>
 			<item value="입력란"/>
 			<item value="f9"/>
-			<item value="ㄹ9"/>
-			<item value="500"/>
-			<item value="id"/>
 		</list>
 		<list key="replacehistory">
+			<item value="jin"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="993"/>
+		<item key="DIALOG_X_ORIGIN" value="785"/>
 		<item key="DIALOG_Y_ORIGIN" value="367"/>
 		<item key="DIALOG_WIDTH" value="340"/>
 		<item key="DIALOG_HEIGHT" value="454"/>

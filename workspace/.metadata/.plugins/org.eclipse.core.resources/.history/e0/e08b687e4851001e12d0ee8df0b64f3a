@@ -1,0 +1,22 @@
+package com.jin.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.jin.model.OrderPageItemDTO;
+
+@Service
+public class OrderServiceImpl implements OrderService{
+	
+	@Autowired
+	private OrderService orderservice;
+
+	@Override
+	public List<OrderPageItemDTO> getGoodsInfo(List<OrderPageItemDTO> orders) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

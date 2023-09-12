@@ -1,0 +1,22 @@
+package com.jin.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.jin.mapper.CartMapper;
+import com.jin.model.CartDTO;
+
+@Service
+public class CartServiceImpl implements CartService{
+	
+	@Autowired
+	private CartMapper cartMapper;
+
+	//장바구니 추가
+	@Override
+	public int addCart(CartDTO cart) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

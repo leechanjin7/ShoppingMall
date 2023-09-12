@@ -1,0 +1,11 @@
+package com.jin.mapper;
+
+public interface CartMapper {
+	
+	//카트 추가
+	public int addCart(CartDTO cart);
+	
+	//카트 삭제
+	public int deleteCart(int cartId);
+
+}

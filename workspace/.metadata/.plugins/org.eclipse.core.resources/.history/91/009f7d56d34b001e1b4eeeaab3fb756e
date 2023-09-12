@@ -1,5 +1,0 @@
-package com.jin.service;
-
-public interface MemberService {
-
-}
