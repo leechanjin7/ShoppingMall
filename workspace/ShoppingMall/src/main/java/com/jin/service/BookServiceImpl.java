@@ -15,6 +15,7 @@ import com.jin.model.BookVO;
 import com.jin.model.CateFilterDTO;
 import com.jin.model.CateVO;
 import com.jin.model.Criteria;
+import com.jin.model.SelectDTO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -125,6 +126,33 @@ public class BookServiceImpl implements BookService {
 		goodsInfo.setImageList(adminMapper.getAttachInfo(bookId));
 		
 		return goodsInfo;
+	}
+
+	//상품 id 이름
+	@Override
+	public BookVO getBookIdName(int bookId) {
+		
+		return bookMapper.getBookIdName(bookId);
+	}
+
+	//평점순 상품 정보
+	@Override
+	public List<SelectDTO> likeSelect() {
+		
+		List<SelectDTO> list = bookMapper.likeSelect();
+		
+		list.forEach(dto ->{
+			
+			int bookId = dto.getBookId();
+			
+			List<AttachImageVO> imageList = attachMapper.getAttachList(bookId);
+			
+			dto.setImageList(imageList);
+			
+		});
+		
+		return list;
+
 	}
 
 }

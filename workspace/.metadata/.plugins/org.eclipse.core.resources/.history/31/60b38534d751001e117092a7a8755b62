@@ -1,0 +1,11 @@
+package com.jin.model;
+
+import java.util.List;
+
+public class ReplyPageDTO {
+	
+	List<ReplyDTO> list;
+	
+	PageDTO pageInfo;
+
+}

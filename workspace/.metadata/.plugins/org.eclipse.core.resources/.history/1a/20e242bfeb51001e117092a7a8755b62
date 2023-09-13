@@ -1,0 +1,9 @@
+package com.jin.model;
+
+public class UpdateReplyDTO {
+	
+	private int bookId;
+	
+	private double ratingAvg;
+
+}

@@ -9,6 +9,9 @@
 		<item key="selection" value="jin"/>
 		<list key="findhistory">
 			<item value="vam"/>
+			<item value="페이지"/>
+			<item value="포인트"/>
+			<item value="blue"/>
 			<item value="title"/>
 			<item value=".footer"/>
 			<item value=".search"/>
@@ -20,17 +23,14 @@
 			<item value="작가 선택"/>
 			<item value="form_section"/>
 			<item value="form_section_content"/>
-			<item value="hidden"/>
-			<item value="입력란"/>
-			<item value="f9"/>
 		</list>
 		<list key="replacehistory">
 			<item value="jin"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="785"/>
-		<item key="DIALOG_Y_ORIGIN" value="367"/>
+		<item key="DIALOG_X_ORIGIN" value="1246"/>
+		<item key="DIALOG_Y_ORIGIN" value="304"/>
 		<item key="DIALOG_WIDTH" value="340"/>
 		<item key="DIALOG_HEIGHT" value="454"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>

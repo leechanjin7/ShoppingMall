@@ -24,7 +24,9 @@ import com.jin.model.AttachImageVO;
 import com.jin.model.BookVO;
 import com.jin.model.Criteria;
 import com.jin.model.PageDTO;
+import com.jin.model.ReplyDTO;
 import com.jin.service.BookService;
+import com.jin.service.ReplyService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -38,6 +40,9 @@ public class BookController {
 	@Autowired
 	private BookService bookService;
 	
+	@Autowired
+	private ReplyService replyService;
+	
 	//메인 페이지 이동
 	@RequestMapping(value="/main", method = RequestMethod.GET)
 	public void mainPageGET(Model model) {
@@ -45,6 +50,7 @@ public class BookController {
 		
 		model.addAttribute("cate1", bookService.getCateCode1());
 		model.addAttribute("cate2", bookService.getCateCode2());
+		model.addAttribute("ls", bookService.likeSelect());
 	}
 	
 	//이미지 출력
@@ -123,5 +129,28 @@ public class BookController {
 		return "/goodsDetail";
 	}
 	
+	//리뷰쓰기
+	@GetMapping("/replyEnroll/{memberId}")
+	public String replyEnrollWindowGET(@PathVariable("memberId")String memberId, int bookId, Model model) {
+		
+		BookVO book = bookService.getBookIdName(bookId);
+		
+		model.addAttribute("bookInfo", book);
+		model.addAttribute("memberId", memberId);
+		
+		return "/replyEnroll";
+	}
+	
+	//리뷰 수정 팝업창
+	@GetMapping("/replyUpdate")
+	public String replyUpdateWindowGET(ReplyDTO dto, Model model) {
+		
+		BookVO book = bookService.getBookIdName(dto.getBookId());
+		model.addAttribute("bookInfo", book);
+		model.addAttribute("replyInfo", replyService.getUpdateReply(dto.getReplyId()));
+		model.addAttribute("memberId", dto.getMemberId());
+		
+		return "/replyUpdate";
+	}
 
 }

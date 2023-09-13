@@ -150,5 +150,21 @@
 	
 	</select>
 	
+	<select id="getBookIdName" resultType="com.jin.model.BookVO">
+	
+		select bookId, bookName from jin_book 
+		where bookId = #{bookId}
+	
+	
+	</select>
+	
+	<select id="likeSelect" resultType="com.jin.model.SelectDTO">
+	
+	select bookId, bookName, ratingAvg, (select cateName from jin_bcate where jin_book.cateCode = jin_bcate.cateCode) as cateName
+	from jin_book
+	order by ratingAvg desc limit 8		
+	
+	</select>
+	
 
   </mapper>

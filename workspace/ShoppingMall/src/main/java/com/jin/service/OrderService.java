@@ -2,6 +2,7 @@ package com.jin.service;
 
 import java.util.List;
 
+import com.jin.model.OrderCancelDTO;
 import com.jin.model.OrderDTO;
 import com.jin.model.OrderPageItemDTO;
 
@@ -12,4 +13,7 @@ public interface OrderService {
 
 	//주문
 	public void order(OrderDTO ord);
+	
+	//주문 취소
+	public void orderCancel(OrderCancelDTO dto);
 }

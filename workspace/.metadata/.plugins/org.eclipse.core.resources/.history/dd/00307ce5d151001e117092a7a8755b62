@@ -1,0 +1,19 @@
+package com.jin.model;
+
+import java.util.Date;
+
+public class ReplyDTO {
+	
+	private int replyId;
+	
+	private int bookId;
+	
+	private String memberId;
+
+	private Date regDate;
+	
+	private String content;
+	
+	private double rating;
+
+}

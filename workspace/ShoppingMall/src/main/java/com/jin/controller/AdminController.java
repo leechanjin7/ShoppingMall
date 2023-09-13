@@ -34,9 +34,12 @@ import com.jin.model.AttachImageVO;
 import com.jin.model.AuthorVO;
 import com.jin.model.BookVO;
 import com.jin.model.Criteria;
+import com.jin.model.OrderCancelDTO;
+import com.jin.model.OrderDTO;
 import com.jin.model.PageDTO;
 import com.jin.service.AdminService;
 import com.jin.service.AuthorService;
+import com.jin.service.OrderService;
 
 import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnails;
@@ -51,6 +54,9 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private OrderService orderService;
 
 	// 관리자 메인 페이지 이동
 	@RequestMapping(value = "main", method = RequestMethod.GET)
@@ -420,5 +426,29 @@ public class AdminController {
 		
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
+	
+	//주문 현황 페이지
+	@GetMapping("/orderList")
+	public String orderListGET(Criteria cri, Model model) {
+		
+		List<OrderDTO> list = adminService.getOrderList(cri);
+		
+		if(!list.isEmpty()) {
+			model.addAttribute("list", list);
+			model.addAttribute("pageMaker", new PageDTO(cri, adminService.getOrderTotal(cri)));
+		} else {
+			model.addAttribute("listCheck", "empty");
+		}
+		
+		return "/admin/orderList";
+	}
 
+	//주문 삭제
+	@PostMapping("/orderCancel")
+	public String orderCancelPOST(OrderCancelDTO dto) {
+		
+		orderService.orderCancel(dto);
+		
+		return "redirect:/admin/orderList?keyword=" + dto.getKeyword() + "&amount=" + dto.getAmount() + "&pageNum=" + dto.getPageNum();
+	}
 }
